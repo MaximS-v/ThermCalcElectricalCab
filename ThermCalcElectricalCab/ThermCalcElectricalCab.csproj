@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Folder Include="Libs\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>

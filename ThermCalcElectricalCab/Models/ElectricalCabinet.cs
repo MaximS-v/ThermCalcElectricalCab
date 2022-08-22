@@ -19,5 +19,8 @@ namespace ThermCalcElectricalCab.Model
 
         public double MaxInTemp { get; set; }
         public double MinInTemp { get; set; }
+
+        public double MaxOutTemp { get; set; }
+        public double MinOutTemp { get; set; }
     }
 }
