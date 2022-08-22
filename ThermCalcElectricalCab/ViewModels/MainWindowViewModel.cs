@@ -18,6 +18,7 @@ namespace ThermCalcElectricalCab.ViewModels
         }
         #endregion
 
+        #region HeatTransferCoeff
         private double _selectedHeatTransferCoeff;
         public double SelectedHeatTransferCoeff
         {
@@ -28,8 +29,10 @@ namespace ThermCalcElectricalCab.ViewModels
             }
         }
 
-        public static Dictionary<string, double> HeatTransferCoeff => ThermalCalcs.HeatTransferCoeff;
+        public static Dictionary<string, double> HeatTransferCoeff => ThermalCalcs.HeatTransferCoeff; 
+        #endregion
 
+        #region Layout
         private ThermalCalcs.ElCabsLayout _selectedElCabsLayout;
         public ThermalCalcs.ElCabsLayout SelectedElCabsLayout
         {
@@ -40,7 +43,14 @@ namespace ThermCalcElectricalCab.ViewModels
             }
         }
 
-        public IEnumerable<ThermalCalcs.ElCabsLayout> ElCabsLayoutsValues => Enum.GetValues(typeof(ThermalCalcs.ElCabsLayout)).Cast<ThermalCalcs.ElCabsLayout>();
+        public IEnumerable<ThermalCalcs.ElCabsLayout> ElCabsLayoutsValues
+        {
+            get
+            {
+                return Enum.GetValues(typeof(ThermalCalcs.ElCabsLayout)).Cast<ThermalCalcs.ElCabsLayout>();
+            }
+        } 
+        #endregion
 
         private ElectricalCabinet _electricalCabinet;
         public ElectricalCabinet ElectricalCabinet { get => _electricalCabinet; }

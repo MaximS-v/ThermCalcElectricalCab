@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ThermCalcElectricalCab"
         xmlns:vm="clr-namespace:ThermCalcElectricalCab.ViewModels"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="450" Width="800">
+        Title="{Binding Title}" Height="Auto" Width="Auto">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
@@ -28,7 +28,8 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
         <Style TargetType="GroupBox">
-            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Margin" Value="10 0"/>
+            <Setter Property="Padding" Value="0"/>
         </Style>
         <Style TargetType="ComboBox">
             <Setter Property="Margin" Value="5"/>
@@ -36,51 +37,144 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <GroupBox Grid.Row="0" Padding="5" Header="Параметры электрического щита">
+        <GroupBox Grid.Row="0">
+            <GroupBox.Header>
+                <TextBlock>
+                    <Span FontWeight="Bold" FontSize="20">
+                        Параметры электрического щита
+                    </Span>
+                </TextBlock>
+            </GroupBox.Header>
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="Высота"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding ElectricalCabinet.Height}"/>
-                <TextBlock Grid.Row="0" Grid.Column="2" Text="мм" Style="{StaticResource HorizAligLeft}"/>
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Ширина"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ElectricalCabinet.Width}"/>
-                <TextBlock Grid.Row="1" Grid.Column="2" Text="мм" Style="{StaticResource HorizAligLeft}"/>
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="Глубина"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ElectricalCabinet.Depth}"/>
-                <TextBlock Grid.Row="2" Grid.Column="2" Text="мм" Style="{StaticResource HorizAligLeft}"/>
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="Коэффициент теплообмена"/>
-                <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding HeatTransferCoeff}" SelectedValuePath="Value" SelectedValue="{Binding SelectedHeatTransferCoeff}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Path=Key, StringFormat='{}{0}, '}"/>
-                                <TextBlock Text="{Binding Path=Value}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <TextBlock Grid.Row="3" Grid.Column="2" Text="Вт/м2/°C" Style="{StaticResource HorizAligLeft}"/>
-                <TextBlock Grid.Row="4" Grid.Column="0" Text="Расположение шкафа"/>
-                <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding ElCabsLayoutsValues}" SelectedItem="{Binding SelectedElCabsLayout}">
-                </ComboBox>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Высота"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" 
+                             Text="{Binding ElectricalCabinet.Height, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="мм" Style="{StaticResource HorizAligLeft}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Ширина"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" 
+                             Text="{Binding ElectricalCabinet.Width, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="мм" Style="{StaticResource HorizAligLeft}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Глубина"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" 
+                             Text="{Binding ElectricalCabinet.Depth, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="2" Text="мм" Style="{StaticResource HorizAligLeft}"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Коэффициент теплообмена"/>
+                    <ComboBox Grid.Row="3" Grid.Column="1" 
+                          ItemsSource="{Binding HeatTransferCoeff}" 
+                          SelectedValuePath="Value" SelectedValue="{Binding SelectedHeatTransferCoeff, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Path=Key, StringFormat='{}{0}, '}"/>
+                                    <TextBlock Text="{Binding Path=Value}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock Grid.Row="3" Grid.Column="2" Text="Вт/м2/°C" Style="{StaticResource HorizAligLeft}"/>
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Расположение шкафа"/>
+                    <ComboBox Grid.Row="4" Grid.Column="1" 
+                          ItemsSource="{Binding ElCabsLayoutsValues}" 
+                          SelectedItem="{Binding SelectedElCabsLayout, UpdateSourceTrigger=PropertyChanged}">
+                    </ComboBox>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Тепловая мощность, выделяемая установленным внутри оборудованием"/>
+                    <TextBox Grid.Row="5" Grid.Column="1" 
+                             Text="{Binding ElectricalCabinet.ComponentsPower, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Grid.Row="5" Grid.Column="2" Text="Вт" Style="{StaticResource HorizAligLeft}"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <GroupBox Grid.Row="0">
+                        <GroupBox.Header>
+                            <TextBlock>
+                                <Span FontWeight="Bold">
+                                    Допустимая температура внутри
+                                </Span>
+                            </TextBlock>
+                        </GroupBox.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Макс."/>
+                            <TextBox Grid.Row="0" Grid.Column="1" 
+                                     Text="{Binding ElectricalCabinet.MaxInTemp, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Мин."/>
+                            <TextBox Grid.Row="1" Grid.Column="1" 
+                                     Text="{Binding ElectricalCabinet.MinInTemp, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Row="1">
+                        <GroupBox.Header>
+                            <TextBlock>
+                                <Span FontWeight="Bold">
+                                    Возможная температура снаружи
+                                </Span>
+                            </TextBlock>
+                        </GroupBox.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Макс."/>
+                            <TextBox Grid.Row="0" Grid.Column="1" 
+                                     Text="{Binding ElectricalCabinet.MaxOutTemp, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Мин."/>
+                            <TextBox Grid.Row="1" Grid.Column="1" 
+                                     Text="{Binding ElectricalCabinet.MinOutTemp, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
             </Grid>
         </GroupBox>
-        <GroupBox Grid.Row="1" Header="Результаты расчёта">
-            
+        <GroupBox Grid.Row="1">
+            <GroupBox.Header>
+                <TextBlock>
+                    <Span FontWeight="Bold" FontSize="20">
+                        Результаты расчёта
+                    </Span>
+                </TextBlock>
+            </GroupBox.Header>
         </GroupBox>
     </Grid>
 </Window>
