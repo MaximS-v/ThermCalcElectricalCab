@@ -63,7 +63,7 @@
                 <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ElectricalCabinet.Depth}"/>
                 <TextBlock Grid.Row="2" Grid.Column="2" Text="мм" Style="{StaticResource HorizAligLeft}"/>
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="Коэффициент теплообмена"/>
-                <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding HeatTransferCoeff}">
+                <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding HeatTransferCoeff}" SelectedValuePath="Value" SelectedValue="{Binding SelectedHeatTransferCoeff}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
