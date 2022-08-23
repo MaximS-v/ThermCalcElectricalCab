@@ -103,7 +103,8 @@
                     </ComboBox>
                     <TextBlock Grid.Row="5" Grid.Column="0" Text="Тепловая мощность, выделяемая установленным внутри оборудованием"/>
                     <TextBox Grid.Row="5" Grid.Column="1" 
-                             Text="{Binding ElectricalCabinet.ComponentsPower, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding ElectricalCabinet.ComponentsPower, UpdateSourceTrigger=PropertyChanged}"
+                             PreviewTextInput="NumericOnlyTextInput"/>
                     <TextBlock Grid.Row="5" Grid.Column="2" Text="Вт" Style="{StaticResource HorizAligLeft}"/>
                 </Grid>
                 <Grid Grid.Column="1">
@@ -131,11 +132,13 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Макс."/>
                             <TextBox Grid.Row="0" Grid.Column="1" 
-                                     Text="{Binding ElectricalCabinet.MaxInTemp, UpdateSourceTrigger=PropertyChanged}"/>
+                                     Text="{Binding ElectricalCabinet.MaxInTemp, UpdateSourceTrigger=PropertyChanged}"
+                                     PreviewTextInput="NumericAndMinusTextInput"/>
                             <TextBlock Grid.Row="0" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="Мин."/>
                             <TextBox Grid.Row="1" Grid.Column="1" 
-                                     Text="{Binding ElectricalCabinet.MinInTemp, UpdateSourceTrigger=PropertyChanged}"/>
+                                     Text="{Binding ElectricalCabinet.MinInTemp, UpdateSourceTrigger=PropertyChanged}"
+                                     PreviewTextInput="NumericAndMinusTextInput"/>
                             <TextBlock Grid.Row="1" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
                         </Grid>
                     </GroupBox>
@@ -159,11 +162,13 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Макс."/>
                             <TextBox Grid.Row="0" Grid.Column="1" 
-                                     Text="{Binding ElectricalCabinet.MaxOutTemp, UpdateSourceTrigger=PropertyChanged}"/>
+                                     Text="{Binding ElectricalCabinet.MaxOutTemp, UpdateSourceTrigger=PropertyChanged}"
+                                     PreviewTextInput="NumericAndMinusTextInput"/>
                             <TextBlock Grid.Row="0" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="Мин."/>
                             <TextBox Grid.Row="1" Grid.Column="1" 
-                                     Text="{Binding ElectricalCabinet.MinOutTemp, UpdateSourceTrigger=PropertyChanged}"/>
+                                     Text="{Binding ElectricalCabinet.MinOutTemp, UpdateSourceTrigger=PropertyChanged}"
+                                     PreviewTextInput="NumericAndMinusTextInput"/>
                             <TextBlock Grid.Row="1" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
                         </Grid>
                     </GroupBox>
