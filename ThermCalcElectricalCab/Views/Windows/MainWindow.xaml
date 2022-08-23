@@ -69,15 +69,18 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Высота"/>
                     <TextBox Grid.Row="0" Grid.Column="1" 
-                             Text="{Binding ElectricalCabinet.Height, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding ElectricalCabinet.Height, UpdateSourceTrigger=PropertyChanged}" 
+                             PreviewTextInput="NumericOnlyTextInput"/>
                     <TextBlock Grid.Row="0" Grid.Column="2" Text="мм" Style="{StaticResource HorizAligLeft}"/>
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Ширина"/>
                     <TextBox Grid.Row="1" Grid.Column="1" 
-                             Text="{Binding ElectricalCabinet.Width, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding ElectricalCabinet.Width, UpdateSourceTrigger=PropertyChanged}"
+                             PreviewTextInput="NumericOnlyTextInput"/>
                     <TextBlock Grid.Row="1" Grid.Column="2" Text="мм" Style="{StaticResource HorizAligLeft}"/>
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="Глубина"/>
                     <TextBox Grid.Row="2" Grid.Column="1" 
-                             Text="{Binding ElectricalCabinet.Depth, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding ElectricalCabinet.Depth, UpdateSourceTrigger=PropertyChanged}"
+                             PreviewTextInput="NumericOnlyTextInput"/>
                     <TextBlock Grid.Row="2" Grid.Column="2" Text="мм" Style="{StaticResource HorizAligLeft}"/>
                     <TextBlock Grid.Row="3" Grid.Column="0" Text="Коэффициент теплообмена"/>
                     <ComboBox Grid.Row="3" Grid.Column="1" 

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Input;
 
 namespace ThermCalcElectricalCab
 {
@@ -10,6 +12,12 @@ namespace ThermCalcElectricalCab
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void NumericOnlyTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }
