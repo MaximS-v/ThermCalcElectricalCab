@@ -41,6 +41,9 @@ namespace ThermCalcElectricalCab.Model
         private double _maxInTempWOCooling;
         public double MaxInTempWOCooling => _maxInTempWOCooling;
 
+        private double _minInTempWOHeating;
+        public double MinInTempWOHeating => _minInTempWOHeating;
+
         private double _effectiveHeatEchangeArea;
         
 
@@ -48,6 +51,7 @@ namespace ThermCalcElectricalCab.Model
         {
             _effectiveHeatEchangeArea = ThermalCalcs.EffectiveHeatExchangeArea(_height, _width, _depth, _layout);
             _maxInTempWOCooling = ThermalCalcs.InsideTemp(_componentsPower, _heatTransferCoeff, _effectiveHeatEchangeArea, _maxOutTemp);
+            _minInTempWOHeating = ThermalCalcs.InsideTemp(_componentsPower, _heatTransferCoeff, _effectiveHeatEchangeArea, _minOutTemp);
         }
     }
 }

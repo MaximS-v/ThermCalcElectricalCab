@@ -38,7 +38,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <GroupBox Grid.Row="0">
             <GroupBox.Header>
@@ -69,23 +69,23 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Высота"/>
                     <TextBox Grid.Row="0" Grid.Column="1" 
-                             Text="{Binding ElectricalCabinet.Height, UpdateSourceTrigger=PropertyChanged}" 
+                             Text="{Binding Height, UpdateSourceTrigger=PropertyChanged}" 
                              PreviewTextInput="NumericOnlyTextInput"/>
                     <TextBlock Grid.Row="0" Grid.Column="2" Text="мм" Style="{StaticResource HorizAligLeft}"/>
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Ширина"/>
                     <TextBox Grid.Row="1" Grid.Column="1" 
-                             Text="{Binding ElectricalCabinet.Width, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding Width, UpdateSourceTrigger=PropertyChanged}"
                              PreviewTextInput="NumericOnlyTextInput"/>
                     <TextBlock Grid.Row="1" Grid.Column="2" Text="мм" Style="{StaticResource HorizAligLeft}"/>
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="Глубина"/>
                     <TextBox Grid.Row="2" Grid.Column="1" 
-                             Text="{Binding ElectricalCabinet.Depth, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding Depth, UpdateSourceTrigger=PropertyChanged}"
                              PreviewTextInput="NumericOnlyTextInput"/>
                     <TextBlock Grid.Row="2" Grid.Column="2" Text="мм" Style="{StaticResource HorizAligLeft}"/>
                     <TextBlock Grid.Row="3" Grid.Column="0" Text="Коэффициент теплообмена"/>
                     <ComboBox Grid.Row="3" Grid.Column="1" 
-                          ItemsSource="{Binding HeatTransferCoeff}" 
-                          SelectedValuePath="Value" SelectedValue="{Binding ElectricalCabinet.HeatTransferCoeff, UpdateSourceTrigger=PropertyChanged}">
+                          ItemsSource="{Binding HeatTransferCoeffs}" 
+                          SelectedValuePath="Value" SelectedValue="{Binding HeatTransferCoeff, UpdateSourceTrigger=PropertyChanged}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -98,12 +98,12 @@
                     <TextBlock Grid.Row="3" Grid.Column="2" Text="Вт/м2/°C" Style="{StaticResource HorizAligLeft}"/>
                     <TextBlock Grid.Row="4" Grid.Column="0" Text="Расположение шкафа"/>
                     <ComboBox Grid.Row="4" Grid.Column="1" 
-                          ItemsSource="{Binding ElCabsLayoutsValues}" 
-                          SelectedItem="{Binding ElectricalCabinet.Layout, UpdateSourceTrigger=PropertyChanged}">
+                          ItemsSource="{Binding ElCabsLayoutsValues}"
+                          SelectedItem="{Binding Layout, UpdateSourceTrigger=PropertyChanged}">
                     </ComboBox>
                     <TextBlock Grid.Row="5" Grid.Column="0" Text="Тепловая мощность, выделяемая установленным внутри оборудованием"/>
                     <TextBox Grid.Row="5" Grid.Column="1" 
-                             Text="{Binding ElectricalCabinet.ComponentsPower, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding ComponentsPower, UpdateSourceTrigger=PropertyChanged}"
                              PreviewTextInput="NumericOnlyTextInput"/>
                     <TextBlock Grid.Row="5" Grid.Column="2" Text="Вт" Style="{StaticResource HorizAligLeft}"/>
                 </Grid>
@@ -132,12 +132,12 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Макс."/>
                             <TextBox Grid.Row="0" Grid.Column="1" 
-                                     Text="{Binding ElectricalCabinet.MaxInTemp, UpdateSourceTrigger=PropertyChanged}"
+                                     Text="{Binding MaxInTemp, UpdateSourceTrigger=PropertyChanged}"
                                      PreviewTextInput="NumericAndMinusTextInput"/>
                             <TextBlock Grid.Row="0" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="Мин."/>
                             <TextBox Grid.Row="1" Grid.Column="1" 
-                                     Text="{Binding ElectricalCabinet.MinInTemp, UpdateSourceTrigger=PropertyChanged}"
+                                     Text="{Binding MinInTemp, UpdateSourceTrigger=PropertyChanged}"
                                      PreviewTextInput="NumericAndMinusTextInput"/>
                             <TextBlock Grid.Row="1" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
                         </Grid>
@@ -162,12 +162,12 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Макс."/>
                             <TextBox Grid.Row="0" Grid.Column="1" 
-                                     Text="{Binding ElectricalCabinet.MaxOutTemp, UpdateSourceTrigger=PropertyChanged}"
+                                     Text="{Binding MaxOutTemp, UpdateSourceTrigger=PropertyChanged}"
                                      PreviewTextInput="NumericAndMinusTextInput"/>
                             <TextBlock Grid.Row="0" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="Мин."/>
                             <TextBox Grid.Row="1" Grid.Column="1" 
-                                     Text="{Binding ElectricalCabinet.MinOutTemp, UpdateSourceTrigger=PropertyChanged}"
+                                     Text="{Binding MinOutTemp, UpdateSourceTrigger=PropertyChanged}"
                                      PreviewTextInput="NumericAndMinusTextInput"/>
                             <TextBlock Grid.Row="1" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
                         </Grid>
@@ -185,8 +185,8 @@
             </GroupBox.Header>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <GroupBox>
                     <GroupBox.Header>
@@ -198,8 +198,8 @@
                     </GroupBox.Header>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -208,8 +208,12 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Мин."/>
                         <TextBox Grid.Row="0" Grid.Column="1" 
-                                     Text="{Binding ElectricalCabinet.Height}" IsReadOnly="True"/>
+                                     Text="{Binding MinInTempWOHeating, Mode=OneWay}" IsReadOnly="True"/>
                         <TextBlock Grid.Row="0" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Макс."/>
+                        <TextBox Grid.Row="1" Grid.Column="1" 
+                                     Text="{Binding MaxInTempWOCooling, Mode=OneWay}" IsReadOnly="True"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
                     </Grid>
                 </GroupBox>
             </Grid>

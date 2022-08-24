@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using ThermCalcElectricalCab.Model;
 using ThermCalcElectricalCab.ViewModels.Base;
+using static ElCalcLib.ThermalCalcs;
 
 namespace ThermCalcElectricalCab.ViewModels
 {
@@ -18,28 +20,175 @@ namespace ThermCalcElectricalCab.ViewModels
         }
         #endregion
 
-        #region HeatTransferCoeff
-        public static Dictionary<string, double> HeatTransferCoeff => ThermalCalcs.HeatTransferCoeff; 
-        #endregion
+        public static Dictionary<string, double> HeatTransferCoeffs => ThermalCalcs.HeatTransferCoeff;
 
-        #region Layout
+        #region Layouts
         public IEnumerable<ThermalCalcs.ElCabsLayout> ElCabsLayoutsValues
         {
             get
             {
                 return Enum.GetValues(typeof(ThermalCalcs.ElCabsLayout)).Cast<ThermalCalcs.ElCabsLayout>();
             }
-        } 
+        }
+        #endregion
+
+        #region Layout
+        private ElCabsLayout _layout;
+        public ElCabsLayout Layout
+        {
+            get => _layout;
+            set
+            {
+                _electricalCabinet.Layout = value;
+                Set(ref _layout, value);
+            }
+        }
+        #endregion
+
+        #region Height
+        private double _height;
+        public double Height
+        {
+            get => _height;
+            set
+            {
+                _electricalCabinet.Height = value / 1000;
+                Set(ref _height, value);
+            }
+        }
+        #endregion
+
+        #region Width
+        private double _width;
+        public double Width
+        {
+            get => _width;
+            set
+            {
+                _electricalCabinet.Width = value / 1000;
+                Set(ref _width, value);
+            }
+        }
+        #endregion
+
+        #region Depth
+        private double _depth;
+        public double Depth
+        {
+            get => _depth;
+            set
+            {
+                _electricalCabinet.Depth = value / 1000;
+                Set(ref _depth, value);
+            }
+        }
+        #endregion
+
+        #region ComponentsPower
+        private double _componentsPower;
+        public double ComponentsPower
+        {
+            get => _componentsPower;
+            set
+            {
+                _electricalCabinet.ComponentsPower = value;
+                Set(ref _componentsPower, value);
+            }
+        }
+        #endregion
+
+        #region HeatTransferCoeff
+        private double _heatTransferCoeff;
+        public double HeatTransferCoeff
+        {
+            get => _heatTransferCoeff;
+            set
+            {
+                _electricalCabinet.HeatTransferCoeff = value;
+                Set(ref _heatTransferCoeff, value);
+            }
+        }
+        #endregion
+
+        #region MaxInTemp
+        private double _maxInTemp;
+        public double MaxInTemp
+        {
+            get => _maxInTemp;
+            set
+            {
+                _electricalCabinet.MaxInTemp = value;
+                Set(ref _maxInTemp, value);
+            }
+        }
+        #endregion
+
+        #region MinInTemp
+        private double _minInTemp;
+        public double MinInTemp
+        {
+            get => _minInTemp;
+            set
+            {
+                _electricalCabinet.MinInTemp = value;
+                Set(ref _minInTemp, value);
+            }
+        }
+        #endregion
+
+        #region MaxOutTemp
+        private double _maxOutTemp;
+        public double MaxOutTemp
+        {
+            get => _maxOutTemp;
+            set
+            {
+                _electricalCabinet.MaxOutTemp = value;
+                Set(ref _maxOutTemp, value);
+            }
+        }
+        #endregion
+
+        #region MinOutTemp
+        private double _minOutTemp;
+        public double MinOutTemp
+        {
+            get => _minOutTemp;
+            set
+            {
+                _electricalCabinet.MinOutTemp = value;
+                Set(ref _minOutTemp, value);
+            }
+        }
         #endregion
 
         private ElectricalCabinet _electricalCabinet;
-        public ElectricalCabinet ElectricalCabinet { get => _electricalCabinet; set => Set(ref _electricalCabinet, value); }
 
         public MainWindowViewModel()
         {
             _electricalCabinet = new ElectricalCabinet();
         }
 
+        protected override bool Set<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
+        {
+            bool result = base.Set(ref field, value, PropertyName);
+            if (result)
+            {
+                _electricalCabinet.Recalc();
+                OnPropertyChanged("MaxInTempWOCooling");
+                OnPropertyChanged("MinInTempWOHeating");
+            }
+            return result;
+        }
 
+        public double MaxInTempWOCooling
+        {
+            get => _electricalCabinet.MaxInTempWOCooling;
+        }
+
+        public double MinInTempWOHeating
+        {
+            get => _electricalCabinet.MinInTempWOHeating;
+        }
     }
 }
