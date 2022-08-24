@@ -85,7 +85,7 @@
                     <TextBlock Grid.Row="3" Grid.Column="0" Text="Коэффициент теплообмена"/>
                     <ComboBox Grid.Row="3" Grid.Column="1" 
                           ItemsSource="{Binding HeatTransferCoeff}" 
-                          SelectedValuePath="Value" SelectedValue="{Binding SelectedHeatTransferCoeff, UpdateSourceTrigger=PropertyChanged}">
+                          SelectedValuePath="Value" SelectedValue="{Binding ElectricalCabinet.HeatTransferCoeff, UpdateSourceTrigger=PropertyChanged}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -99,7 +99,7 @@
                     <TextBlock Grid.Row="4" Grid.Column="0" Text="Расположение шкафа"/>
                     <ComboBox Grid.Row="4" Grid.Column="1" 
                           ItemsSource="{Binding ElCabsLayoutsValues}" 
-                          SelectedItem="{Binding SelectedElCabsLayout, UpdateSourceTrigger=PropertyChanged}">
+                          SelectedItem="{Binding ElectricalCabinet.Layout, UpdateSourceTrigger=PropertyChanged}">
                     </ComboBox>
                     <TextBlock Grid.Row="5" Grid.Column="0" Text="Тепловая мощность, выделяемая установленным внутри оборудованием"/>
                     <TextBox Grid.Row="5" Grid.Column="1" 
@@ -183,6 +183,36 @@
                     </Span>
                 </TextBlock>
             </GroupBox.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <GroupBox>
+                    <GroupBox.Header>
+                        <TextBlock>
+                                <Span FontWeight="Bold">
+                                    Температура без обогрева и охлаждения
+                                </Span>
+                        </TextBlock>
+                    </GroupBox.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Мин."/>
+                        <TextBox Grid.Row="0" Grid.Column="1" 
+                                     Text="{Binding ElectricalCabinet.Height}" IsReadOnly="True"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
+                    </Grid>
+                </GroupBox>
+            </Grid>
         </GroupBox>
     </Grid>
 </Window>

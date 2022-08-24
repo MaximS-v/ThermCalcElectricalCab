@@ -1,4 +1,5 @@
-﻿using static ElCalcLib.ThermalCalcs;
+﻿using ElCalcLib;
+using static ElCalcLib.ThermalCalcs;
 
 namespace ThermCalcElectricalCab.Model
 {
@@ -7,20 +8,46 @@ namespace ThermCalcElectricalCab.Model
     /// </summary>
     public class ElectricalCabinet
     {
-        public double Height { get; set; }
-        public double Width { get; set; }
-        public double Depth { get; set; }
+        private double _height;
+        public double Height { get => _height; set => _height = value; }
 
-        public double HeatTransferCoeff { get; set; }
+        private double _width;
+        public double Width { get => _width; set => _width = value; }
 
-        public ElCabsLayout Layout { get; set; }
+        private double _depth;
+        public double Depth { get => _depth; set => _depth = value; }
 
-        public double ComponentsPower { get; set; }
+        private double _heatTransferCoeff;
+        public double HeatTransferCoeff { get => _heatTransferCoeff; set => _heatTransferCoeff = value; }
 
-        public double MaxInTemp { get; set; }
-        public double MinInTemp { get; set; }
+        private ElCabsLayout _layout;
+        public ElCabsLayout Layout { get => _layout; set => _layout = value; }
 
-        public double MaxOutTemp { get; set; }
-        public double MinOutTemp { get; set; }
+        private double _componentsPower;
+        public double ComponentsPower { get => _componentsPower; set => _componentsPower = value; }
+
+        private double _maxInTemp;
+        public double MaxInTemp { get => _maxInTemp; set => _maxInTemp = value; }
+
+        private double _minInTemp;
+        public double MinInTemp { get => _minInTemp; set => _minInTemp = value; }
+
+        private double _maxOutTemp;
+        public double MaxOutTemp { get => _maxOutTemp; set => _maxOutTemp = value; }
+
+        private double _minOutTemp;
+        public double MinOutTemp { get => _minOutTemp; set => _minOutTemp = value; }
+
+        private double _maxInTempWOCooling;
+        public double MaxInTempWOCooling => _maxInTempWOCooling;
+
+        private double _effectiveHeatEchangeArea;
+        
+
+        public void Recalc()
+        {
+            _effectiveHeatEchangeArea = ThermalCalcs.EffectiveHeatExchangeArea(_height, _width, _depth, _layout);
+            _maxInTempWOCooling = ThermalCalcs.InsideTemp(_componentsPower, _heatTransferCoeff, _effectiveHeatEchangeArea, _maxOutTemp);
+        }
     }
 }
