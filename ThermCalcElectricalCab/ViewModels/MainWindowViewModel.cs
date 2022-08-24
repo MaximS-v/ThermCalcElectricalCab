@@ -177,6 +177,7 @@ namespace ThermCalcElectricalCab.ViewModels
                 _electricalCabinet.Recalc();
                 OnPropertyChanged("MaxInTempWOCooling");
                 OnPropertyChanged("MinInTempWOHeating");
+                OnPropertyChanged("RequiredAirflowValue");
             }
             return result;
         }
@@ -189,6 +190,11 @@ namespace ThermCalcElectricalCab.ViewModels
         public double MinInTempWOHeating
         {
             get => _electricalCabinet.MinInTempWOHeating;
+        }
+
+        public double RequiredAirflowValue
+        {
+            get => _electricalCabinet.RequiredAirflowValue;
         }
     }
 }

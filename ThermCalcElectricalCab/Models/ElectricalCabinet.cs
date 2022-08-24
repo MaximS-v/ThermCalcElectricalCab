@@ -46,12 +46,18 @@ namespace ThermCalcElectricalCab.Model
 
         private double _effectiveHeatEchangeArea;
         
+        private double _excessHeatOutput;
+
+        private double _requiredAirflowValue;
+        public double RequiredAirflowValue => _requiredAirflowValue;
 
         public void Recalc()
         {
             _effectiveHeatEchangeArea = ThermalCalcs.EffectiveHeatExchangeArea(_height, _width, _depth, _layout);
             _maxInTempWOCooling = ThermalCalcs.InsideTemp(_componentsPower, _heatTransferCoeff, _effectiveHeatEchangeArea, _maxOutTemp);
             _minInTempWOHeating = ThermalCalcs.InsideTemp(_componentsPower, _heatTransferCoeff, _effectiveHeatEchangeArea, _minOutTemp);
+            _excessHeatOutput = ThermalCalcs.ExcessHeatOutput(_componentsPower, _heatTransferCoeff, _effectiveHeatEchangeArea, _maxInTemp, _maxOutTemp);
+            _requiredAirflowValue = ThermalCalcs.RequiredAirflowValue(_excessHeatOutput, _maxInTemp, _maxOutTemp);
         }
     }
 }
