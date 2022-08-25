@@ -192,6 +192,8 @@ namespace ThermCalcElectricalCab.ViewModels
                 OnPropertyChanged("RequiredAirflowValue_w_2_grid");
                 OnPropertyChanged("RequiredAirflowValue_w_3_grid");
                 OnPropertyChanged("IsCoolerNeeded");
+                OnPropertyChanged("IsHeaterNeeded");
+                OnPropertyChanged("RequiredHeaterPower");
             }
             return result;
         }
@@ -230,5 +232,13 @@ namespace ThermCalcElectricalCab.ViewModels
         {
             get => _electricalCabinet.IsCoolerNeeded;
         }
+
+        public bool IsHeaterNeeded
+        {
+            get => _electricalCabinet.IsHeaterNeeded;
+        }
+
+        public double RequiredHeaterPower { get => _electricalCabinet.RequiredHeaterPower; }
+        
     }
 }

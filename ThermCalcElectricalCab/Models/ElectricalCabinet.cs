@@ -50,9 +50,9 @@ namespace ThermCalcElectricalCab.Model
 
         private double _requiredAirflowValue;
         public double RequiredAirflowValue => _requiredAirflowValue;
-        public double RequiredAirflowValue_w_1_grid { get => _requiredAirflowValue * 0.7; }
-        public double RequiredAirflowValue_w_2_grid { get => _requiredAirflowValue * 0.8; }
-        public double RequiredAirflowValue_w_3_grid { get => _requiredAirflowValue * 0.9; }
+        public double RequiredAirflowValue_w_1_grid { get => _requiredAirflowValue / 0.7; }
+        public double RequiredAirflowValue_w_2_grid { get => _requiredAirflowValue / 0.8; }
+        public double RequiredAirflowValue_w_3_grid { get => _requiredAirflowValue / 0.9; }
 
         private bool _isHeaterNeeded;
         public bool IsHeaterNeeded => _isHeaterNeeded;

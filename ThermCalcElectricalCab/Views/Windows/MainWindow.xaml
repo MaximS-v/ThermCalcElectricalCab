@@ -187,7 +187,8 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <GroupBox Grid.Column="0">
                     <GroupBox.Header>
@@ -250,6 +251,29 @@
                         <TextBlock Grid.Row="2" Grid.Column="2" Text="м3/ч" Style="{StaticResource HorizAligLeft}"/>
                     </Grid>
                 </GroupBox>
+				<GroupBox Grid.Column="2" Visibility="{Binding Path=IsHeaterNeeded, Converter={StaticResource booleanToVisibilityConverter}}">
+					<GroupBox.Header>
+						<TextBlock>
+							<Span FontWeight="Bold">
+								Необходим обогреватель
+							</Span>
+						</TextBlock>
+					</GroupBox.Header>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<TextBlock Grid.Row="0" Grid.Column="0" Text="Мощностью"/>
+						<TextBox Grid.Row="0" Grid.Column="1"
+                                     Text="{Binding RequiredHeaterPower, Mode=OneWay, StringFormat=F0}" IsReadOnly="True"/>
+						<TextBlock Grid.Row="0" Grid.Column="2" Text="Вт" Style="{StaticResource HorizAligLeft}"/>
+					</Grid>
+				</GroupBox>
             </Grid>
         </GroupBox>
     </Grid>
