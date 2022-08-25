@@ -1,0 +1,280 @@
+﻿<Window x:Class="ThermCalcElectricalCab.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ThermCalcElectricalCab"
+        xmlns:vm="clr-namespace:ThermCalcElectricalCab.ViewModels"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight" ResizeMode="CanMinimize">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="HorizAligLeft">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+        <Style TargetType="GroupBox">
+            <Setter Property="Margin" Value="10 0"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0">
+            <GroupBox.Header>
+                <TextBlock>
+                    <Span FontWeight="Bold" FontSize="20">
+                        Параметры электрического щита
+                    </Span>
+                </TextBlock>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Высота"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" 
+                             Text="{Binding Height, UpdateSourceTrigger=PropertyChanged}" 
+                             PreviewTextInput="NumericOnlyTextInput"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="мм" Style="{StaticResource HorizAligLeft}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Ширина"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" 
+                             Text="{Binding Width, UpdateSourceTrigger=PropertyChanged}"
+                             PreviewTextInput="NumericOnlyTextInput"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="мм" Style="{StaticResource HorizAligLeft}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Глубина"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" 
+                             Text="{Binding Depth, UpdateSourceTrigger=PropertyChanged}"
+                             PreviewTextInput="NumericOnlyTextInput"/>
+                    <TextBlock Grid.Row="2" Grid.Column="2" Text="мм" Style="{StaticResource HorizAligLeft}"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Коэффициент теплообмена"/>
+                    <ComboBox Grid.Row="3" Grid.Column="1" 
+                          ItemsSource="{Binding HeatTransferCoeffs}" 
+                          SelectedValuePath="Value" SelectedValue="{Binding HeatTransferCoeff, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Path=Key, StringFormat='{}{0}, '}"/>
+                                    <TextBlock Text="{Binding Path=Value}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock Grid.Row="3" Grid.Column="2" Text="Вт/м2/°C" Style="{StaticResource HorizAligLeft}"/>
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Расположение шкафа"/>
+                    <ComboBox Grid.Row="4" Grid.Column="1" 
+                          ItemsSource="{Binding ElCabsLayoutsValues}"
+                          SelectedItem="{Binding Layout, UpdateSourceTrigger=PropertyChanged}">
+                    </ComboBox>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Тепловая мощность, выделяемая установленным внутри оборудованием"/>
+                    <TextBox Grid.Row="5" Grid.Column="1" 
+                             Text="{Binding ComponentsPower, UpdateSourceTrigger=PropertyChanged}"
+                             PreviewTextInput="NumericOnlyTextInput"/>
+                    <TextBlock Grid.Row="5" Grid.Column="2" Text="Вт" Style="{StaticResource HorizAligLeft}"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <GroupBox Grid.Row="0">
+                        <GroupBox.Header>
+                            <TextBlock>
+                                <Span FontWeight="Bold">
+                                    Допустимая температура внутри
+                                </Span>
+                            </TextBlock>
+                        </GroupBox.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Макс."/>
+                            <TextBox Grid.Row="0" Grid.Column="1" 
+                                     Text="{Binding MaxInTemp, UpdateSourceTrigger=PropertyChanged}"
+                                     PreviewTextInput="NumericAndMinusTextInput"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Мин."/>
+                            <TextBox Grid.Row="1" Grid.Column="1" 
+                                     Text="{Binding MinInTemp, UpdateSourceTrigger=PropertyChanged}"
+                                     PreviewTextInput="NumericAndMinusTextInput"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Row="1">
+                        <GroupBox.Header>
+                            <TextBlock>
+                                <Span FontWeight="Bold">
+                                    Возможная температура снаружи
+                                </Span>
+                            </TextBlock>
+                        </GroupBox.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Макс."/>
+                            <TextBox Grid.Row="0" Grid.Column="1" 
+                                     Text="{Binding MaxOutTemp, UpdateSourceTrigger=PropertyChanged}"
+                                     PreviewTextInput="NumericAndMinusTextInput"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Мин."/>
+                            <TextBox Grid.Row="1" Grid.Column="1" 
+                                     Text="{Binding MinOutTemp, UpdateSourceTrigger=PropertyChanged}"
+                                     PreviewTextInput="NumericAndMinusTextInput"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Margin="10 0 10 10">
+            <GroupBox.Header>
+                <TextBlock>
+                    <Span FontWeight="Bold" FontSize="20">
+                        Результаты расчёта
+                    </Span>
+                </TextBlock>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <GroupBox Grid.Column="0">
+                    <GroupBox.Header>
+                        <TextBlock>
+                                <Span FontWeight="Bold">
+                                    Температура
+                                </Span>
+                        </TextBlock>
+                    </GroupBox.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Мин. без обогрева"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" 
+                                     Text="{Binding MinInTempWOHeating, Mode=OneWay, StringFormat=F0}" IsReadOnly="True"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Макс. без охлаждения"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" 
+                                     Text="{Binding MaxInTempWOCooling, Mode=OneWay, StringFormat=F0}" IsReadOnly="True"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Grid.Column="1" Visibility="{Binding Path=IsCoolerNeeded, Converter={StaticResource booleanToVisibilityConverter}}">
+                    <GroupBox.Header>
+                        <TextBlock>
+                                <Span FontWeight="Bold">
+                                    Необходим вентилятор
+                                </Span>
+                        </TextBlock>
+                    </GroupBox.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="С одной решёткой"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" 
+                                     Text="{Binding RequiredAirflowValue_w_1_grid, Mode=OneWay, StringFormat=F0}" IsReadOnly="True"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="м3/ч" Style="{StaticResource HorizAligLeft}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="С двумя решётками"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" 
+                                     Text="{Binding RequiredAirflowValue_w_2_grid, Mode=OneWay, StringFormat=F0}" IsReadOnly="True"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="м3/ч" Style="{StaticResource HorizAligLeft}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="С тремя решётками"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" 
+                                     Text="{Binding RequiredAirflowValue_w_3_grid, Mode=OneWay, StringFormat=F0}" IsReadOnly="True"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="м3/ч" Style="{StaticResource HorizAligLeft}"/>
+                    </Grid>
+                </GroupBox>
+				<GroupBox Grid.Column="2" Visibility="{Binding Path=IsHeaterNeeded, Converter={StaticResource booleanToVisibilityConverter}}">
+					<GroupBox.Header>
+						<TextBlock>
+							<Span FontWeight="Bold">
+								Необходим обогреватель
+							</Span>
+						</TextBlock>
+					</GroupBox.Header>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<TextBlock Grid.Row="0" Grid.Column="0" Text="Мощностью"/>
+						<TextBox Grid.Row="0" Grid.Column="1"
+                                     Text="{Binding RequiredHeaterPower, Mode=OneWay, StringFormat=F0}" IsReadOnly="True"/>
+						<TextBlock Grid.Row="0" Grid.Column="2" Text="Вт" Style="{StaticResource HorizAligLeft}"/>
+					</Grid>
+				</GroupBox>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>
