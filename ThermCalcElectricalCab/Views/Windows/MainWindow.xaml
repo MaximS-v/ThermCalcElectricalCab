@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ThermCalcElectricalCab"
         xmlns:vm="clr-namespace:ThermCalcElectricalCab.ViewModels"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight">
+        Title="{Binding Title}" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight" ResizeMode="CanMinimize">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
@@ -208,11 +208,11 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Мин. без обогрева"/>
                         <TextBox Grid.Row="0" Grid.Column="1" 
-                                     Text="{Binding MinInTempWOHeating, Mode=OneWay}" IsReadOnly="True"/>
+                                     Text="{Binding MinInTempWOHeating, Mode=OneWay, StringFormat=F0}" IsReadOnly="True"/>
                         <TextBlock Grid.Row="0" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="Макс. без охлаждения"/>
                         <TextBox Grid.Row="1" Grid.Column="1" 
-                                     Text="{Binding MaxInTempWOCooling, Mode=OneWay}" IsReadOnly="True"/>
+                                     Text="{Binding MaxInTempWOCooling, Mode=OneWay, StringFormat=F0}" IsReadOnly="True"/>
                         <TextBlock Grid.Row="1" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
                     </Grid>
                 </GroupBox>
@@ -220,12 +220,13 @@
                     <GroupBox.Header>
                         <TextBlock>
                                 <Span FontWeight="Bold">
-                                    Необходимо
+                                    Необходим вентилятор
                                 </Span>
                         </TextBlock>
                     </GroupBox.Header>
                     <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
@@ -234,14 +235,18 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Вентилятор с воздушным потоком"/>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="С одной решёткой"/>
                         <TextBox Grid.Row="0" Grid.Column="1" 
-                                     Text="{Binding RequiredAirflowValue, Mode=OneWay}" IsReadOnly="True"/>
+                                     Text="{Binding RequiredAirflowValue_w_1_grid, Mode=OneWay, StringFormat=F0}" IsReadOnly="True"/>
                         <TextBlock Grid.Row="0" Grid.Column="2" Text="м3/ч" Style="{StaticResource HorizAligLeft}"/>
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Макс. без охлаждения"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="С двумя решётками"/>
                         <TextBox Grid.Row="1" Grid.Column="1" 
-                                     Text="{Binding MaxInTempWOCooling, Mode=OneWay}" IsReadOnly="True"/>
-                        <TextBlock Grid.Row="1" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
+                                     Text="{Binding RequiredAirflowValue_w_2_grid, Mode=OneWay, StringFormat=F0}" IsReadOnly="True"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="м3/ч" Style="{StaticResource HorizAligLeft}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="С тремя решётками"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" 
+                                     Text="{Binding RequiredAirflowValue_w_3_grid, Mode=OneWay, StringFormat=F0}" IsReadOnly="True"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="м3/ч" Style="{StaticResource HorizAligLeft}"/>
                     </Grid>
                 </GroupBox>
             </Grid>

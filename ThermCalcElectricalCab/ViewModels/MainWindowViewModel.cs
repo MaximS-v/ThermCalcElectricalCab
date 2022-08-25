@@ -167,6 +167,16 @@ namespace ThermCalcElectricalCab.ViewModels
         public MainWindowViewModel()
         {
             _electricalCabinet = new ElectricalCabinet();
+            Height = 2000;
+            Width = 600;
+            Depth = 400;
+            HeatTransferCoeff = ThermalCalcs.HeatTransferCoeff["MetallicPainted"];
+            Layout = ElCabsLayout.NearWall;
+            ComponentsPower = 800;
+            MinInTemp = 10;
+            MaxInTemp = 50;
+            MinOutTemp = -40;
+            MaxOutTemp = 40;
         }
 
         protected override bool Set<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
@@ -178,6 +188,9 @@ namespace ThermCalcElectricalCab.ViewModels
                 OnPropertyChanged("MaxInTempWOCooling");
                 OnPropertyChanged("MinInTempWOHeating");
                 OnPropertyChanged("RequiredAirflowValue");
+                OnPropertyChanged("RequiredAirflowValue_w_1_grid");
+                OnPropertyChanged("RequiredAirflowValue_w_2_grid");
+                OnPropertyChanged("RequiredAirflowValue_w_3_grid");
             }
             return result;
         }
@@ -195,6 +208,21 @@ namespace ThermCalcElectricalCab.ViewModels
         public double RequiredAirflowValue
         {
             get => _electricalCabinet.RequiredAirflowValue;
+        }
+
+        public double RequiredAirflowValue_w_1_grid
+        {
+            get => _electricalCabinet.RequiredAirflowValue_w_1_grid;
+        }
+
+        public double RequiredAirflowValue_w_2_grid
+        {
+            get => _electricalCabinet.RequiredAirflowValue_w_2_grid;
+        }
+
+        public double RequiredAirflowValue_w_3_grid
+        {
+            get => _electricalCabinet.RequiredAirflowValue_w_3_grid;
         }
     }
 }

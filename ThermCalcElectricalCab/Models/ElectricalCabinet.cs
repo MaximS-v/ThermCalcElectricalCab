@@ -50,14 +50,44 @@ namespace ThermCalcElectricalCab.Model
 
         private double _requiredAirflowValue;
         public double RequiredAirflowValue => _requiredAirflowValue;
+        public double RequiredAirflowValue_w_1_grid { get => _requiredAirflowValue * 0.7; }
+        public double RequiredAirflowValue_w_2_grid { get => _requiredAirflowValue * 0.8; }
+        public double RequiredAirflowValue_w_3_grid { get => _requiredAirflowValue * 0.9; }
+
+        private bool _isHeaterNeeded;
+        public bool IsHeaterNeeded => _isHeaterNeeded;
+
+        private bool _isCoolerNeeded;
+        public bool IsCoolerNeeded => _isCoolerNeeded;
+
+        private double _requiredHeaterPower;
+        public double RequiredHeaterPower => _requiredHeaterPower;
+
+        public ElectricalCabinet()
+        {
+            
+        }
 
         public void Recalc()
         {
             _effectiveHeatEchangeArea = ThermalCalcs.EffectiveHeatExchangeArea(_height, _width, _depth, _layout);
             _maxInTempWOCooling = ThermalCalcs.InsideTemp(_componentsPower, _heatTransferCoeff, _effectiveHeatEchangeArea, _maxOutTemp);
             _minInTempWOHeating = ThermalCalcs.InsideTemp(_componentsPower, _heatTransferCoeff, _effectiveHeatEchangeArea, _minOutTemp);
-            _excessHeatOutput = ThermalCalcs.ExcessHeatOutput(_componentsPower, _heatTransferCoeff, _effectiveHeatEchangeArea, _maxInTemp, _maxOutTemp);
-            _requiredAirflowValue = ThermalCalcs.RequiredAirflowValue(_excessHeatOutput, _maxInTemp, _maxOutTemp);
+            _excessHeatOutput = ThermalCalcs.ExcessHeatOutput(_componentsPower, _heatTransferCoeff, _effectiveHeatEchangeArea, 
+                _maxInTemp, _maxOutTemp);
+            _isHeaterNeeded = _minInTempWOHeating < _minInTemp;
+            _isCoolerNeeded = _maxInTempWOCooling > _maxInTemp;
+            if (_isHeaterNeeded)
+            {
+                _requiredHeaterPower = ThermalCalcs.RequiredHeaterPower(_componentsPower, _minInTemp, _minOutTemp,
+                    _effectiveHeatEchangeArea, _heatTransferCoeff);
+            }
+            else _requiredHeaterPower = 0;
+            if (_isCoolerNeeded)
+            {
+                _requiredAirflowValue = ThermalCalcs.RequiredAirflowValue(_excessHeatOutput, _maxInTemp, _maxOutTemp);
+            }
+            else _requiredAirflowValue = 0;
         }
     }
 }
