@@ -11,6 +11,7 @@
         <vm:MainWindowViewModel/>
     </Window.DataContext>
     <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="5"/>
             <Setter Property="HorizontalAlignment" Value="Right"/>
@@ -216,7 +217,7 @@
                         <TextBlock Grid.Row="1" Grid.Column="2" Text="°C" Style="{StaticResource HorizAligLeft}"/>
                     </Grid>
                 </GroupBox>
-                <GroupBox Grid.Column="1">
+                <GroupBox Grid.Column="1" Visibility="{Binding Path=IsCoolerNeeded, Converter={StaticResource booleanToVisibilityConverter}}">
                     <GroupBox.Header>
                         <TextBlock>
                                 <Span FontWeight="Bold">
