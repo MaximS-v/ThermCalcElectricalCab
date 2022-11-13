@@ -19,7 +19,5 @@ namespace ThermCalcElectricalCab.ViewModels.Base
             OnPropertyChanged(PropertyName);
             return true;
         }
-
-        
     }
 }

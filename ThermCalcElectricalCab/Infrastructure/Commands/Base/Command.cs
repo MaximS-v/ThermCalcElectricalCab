@@ -14,5 +14,14 @@ namespace ThermCalcElectricalCab.Infrastructure.Commands.Base
         public abstract bool CanExecute(object? parameter);
 
         public abstract void Execute(object? parameter);
-    }
+
+		Action<object>? _executeMethod;
+		Func<object, bool>? _canexecuteMethod;
+
+        public Command(Action<object>? executeMethod, Func<object, bool>? canexecuteMethod)
+		{
+			_executeMethod = executeMethod;
+			_canexecuteMethod = canexecuteMethod;
+		}
+	}
 }
